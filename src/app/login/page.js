@@ -11,8 +11,8 @@ import { useSession } from 'next-auth/react';
 import Link from "next/link";
 
 const initialFormdata = {
-  email: "dodda@gmail.com",
-  password: "Mani1234",
+  email: "",
+  password: "",
 };
 
 export default function Login() {

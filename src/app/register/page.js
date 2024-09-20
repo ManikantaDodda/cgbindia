@@ -27,6 +27,7 @@ export default function Register() {
   function isFormValid() {
     return formData &&
       formData.name &&
+      formData.role &&
       formData.name.trim() !== "" &&
       formData.email &&
       formData.email.trim() !== "" &&
