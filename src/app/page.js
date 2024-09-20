@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 const HomePage = () => {
   return (
@@ -9,10 +10,28 @@ const HomePage = () => {
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-        <img src="https://picsum.photos/101/101" alt="Random Image 1" className="rounded shadow-md" />
-        <img src="https://picsum.photos/103/103" alt="Random Image 2" className="rounded shadow-md" />
-        <img src="https://picsum.photos/104/104" alt="Random Image 3" className="rounded shadow-md" />
-     </div>
+      <Image 
+        src="https://picsum.photos/101/101" 
+        alt="Random Image 1" 
+        width={101} 
+        height={101} 
+        className="rounded shadow-md" 
+      />
+      <Image 
+        src="https://picsum.photos/103/103" 
+        alt="Random Image 2" 
+        width={103} 
+        height={103} 
+        className="rounded shadow-md" 
+      />
+      <Image 
+        src="https://picsum.photos/104/104" 
+        alt="Random Image 3" 
+        width={104} 
+        height={104} 
+        className="rounded shadow-md" 
+      />
+    </div>
 
       <div className="space-x-4">
         <Link href="/login">

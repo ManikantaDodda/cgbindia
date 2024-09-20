@@ -58,7 +58,7 @@ export default function Login() {
     if (session?.user) {
         router.push("/dashboard");
     }
-  }, []);
+  }, [router, session?.user]);
 
   return (
     <div className="bg-white relative">
@@ -120,9 +120,8 @@ export default function Login() {
                     "Login"
                   )}
                 </button>
-
-                <div className="flex flex-col gap-2">
-                  <p>Don't you have account? <span className="text-blue-600 hover:underline mr-2"><Link href={"/register"} > Register </Link></span>Here</p>
+                <div className="flex flex-col gap-2"> 
+                  <p>Don&apos;t you have an account? <span className="text-blue-600 hover:underline mr-2"><Link href="/register"> Register </Link></span>Here</p>
                 </div>
               </div>
             </div>
