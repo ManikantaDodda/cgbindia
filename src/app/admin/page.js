@@ -2,6 +2,7 @@
 import { useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
 import { redirect } from 'next/navigation';
+import Link from 'next/link';
 
 export default async function AdminPanel() {
   const {data : session, status} =  useSession();
