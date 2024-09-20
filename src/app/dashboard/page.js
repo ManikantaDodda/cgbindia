@@ -9,9 +9,9 @@ const Dashboard = () => {
   const [getUserdata, setUserdata] = useState([]);
 
   useEffect(()=> {
-     // if(session?.user?.role === 'admin') {
+      if(session?.user?.role === 'admin') {
         fetchUserDetails();
-     // }
+      }
   },[]);
 
   const fetchUserDetails = async() => {

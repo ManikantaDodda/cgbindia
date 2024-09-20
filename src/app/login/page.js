@@ -6,7 +6,8 @@ import { loginFormControls } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { signIn , useSession} from 'next-auth/react';
+import { signIn } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
 
 const initialFormdata = {
   email: "dodda@gmail.com",
@@ -15,6 +16,7 @@ const initialFormdata = {
 
 export default function Login() {
   const [formData, setFormData] = useState(initialFormdata);
+  const [loading, setLoading] = useState(false); // New loading state
   const router = useRouter();
   const session = useSession();
 
@@ -29,29 +31,29 @@ export default function Login() {
       ? true
       : false;
   }
-  async function handleLogin() {
 
+  async function handleLogin() {
+    setLoading(true); // Start loading
     const res = await signIn('credentials', {
       redirect: false,
-      email : formData.email,
-      password : formData.password
+      email: formData.email,
+      password: formData.password
     });
     console.log(res, "repoosooso");
+
     if (res.status === 200) {
-      toast.success(res.message, {
+      toast.success("Login Successful", {
         position: "top-right",
       });
       setFormData(initialFormdata);
-      console.log("sesss", res);
       router.push("/dashboard");
     } else {
-      toast.error(res.message, {
+      toast.error("Something went Wrong It may email or password Incorrect", {
         position: "top-right",
       });
     }
+    setLoading(false); // End loading
   }
-
-
 
   return (
     <div className="bg-white relative">
@@ -66,7 +68,7 @@ export default function Login() {
                 {loginFormControls.map((controlItem) =>
                   controlItem.componentType === "input" ? (
                     <InputComponent
-                      key = {controlItem.id}
+                      key={controlItem.id}
                       type={controlItem.type}
                       placeholder={controlItem.placeholder}
                       label={controlItem.label}
@@ -80,20 +82,45 @@ export default function Login() {
                     />
                   ) : null
                 )}
+
                 <button
-                  className="disabled:opacity-50 inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
+                  className={`inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
                      text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
-                     "
-                  disabled={!isValidForm()}
+                     ${loading ? "cursor-not-allowed" : ""}`} // Disable cursor during loading
+                  disabled={!isValidForm() || loading} // Disable during loading
                   onClick={handleLogin}
-                >Login
+                >
+                  {loading ? (
+                    <svg
+                      className="animate-spin h-5 w-5 mr-3 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    "Login"
+                  )}
                 </button>
+
                 <div className="flex flex-col gap-2">
-                  <p>Don't you have account ? Register here</p>
+                  <p>Don't you have account? Register here</p>
                   <button
                     className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
-                     text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
-                     "
+                     text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide"
                     onClick={() => router.push("/register")}
                   >
                     Register

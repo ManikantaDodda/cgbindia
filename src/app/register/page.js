@@ -43,13 +43,13 @@ export default function Register() {
 
     if (data.success) {
       toast.success(data.message, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: "top-right",
       });
       setIsRegistered(true);
       setFormData(initialFormData);
     } else {
       toast.error(data.message, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: "top-right",
       });
       setFormData(initialFormData);
     }
