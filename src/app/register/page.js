@@ -8,18 +8,18 @@ import { registrationFormControls } from "@/utils";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "react-toastify";
-
+import Link from "next/link";
 const initialFormData = {
   name: "",
   email: "",
   password: "",
-  role: "customer",
+  role: "",
 };
 
 export default function Register() {
   const [formData, setFormData] = useState(initialFormData);
   const [isRegistered, setIsRegistered] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   const router = useRouter()
 
   console.log(formData);
@@ -39,6 +39,7 @@ export default function Register() {
   console.log(isFormValid());
 
   async function handleRegisterOnSubmit() {
+    setLoading(true);
     const data = await registerNewUser(formData);
 
     if (data.success) {
@@ -51,9 +52,9 @@ export default function Register() {
       toast.error(data.message, {
         position: "top-right",
       });
-      setFormData(initialFormData);
+      //setFormData(initialFormData);
     }
-
+    setLoading(false);
     console.log(data);
   }
 
@@ -111,15 +112,42 @@ export default function Register() {
                 )}
 
                   <button
-                    className=" disabled:opacity-50 inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
-                   text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
-                   "
-                    disabled={!isFormValid()}
+                     className={`disabled:opacity-50 inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
+                      text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide 
+                      ${loading ? "cursor-not-allowed" : isFormValid() ? "hover:text-custom-blue" : ""}`}
+                    disabled={!isFormValid() || loading}
                     onClick={handleRegisterOnSubmit}
-                  >Register
+                  > {loading ? (
+                    <svg
+                      className="animate-spin h-5 w-5 mr-3 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    "Register"
+                  )}
                   </button>
                 </div>
               )}
+                 <div className="flex flex-col gap-2">
+                   <p></p>
+                   <p>Already have account? <span className="text-blue-600 hover:underline mr-2"><Link href={"/login"} >Login </Link></span> Here</p>
+                 </div>
             </div>
           </div>
         </div>

@@ -14,7 +14,7 @@ const Navbar = () => {
   return (
     <nav className="bg-gray-800 p-4 relative">
       <div className="container mx-auto flex justify-between">
-        <Link href="/" className="text-white font-bold hover:text-custom-blue">Dashboard</Link>
+        <Link href="/dashboard" className="text-white font-bold hover:text-custom-blue">Dashboard</Link>
         <div className="space-x-4 flex items-center relative">
           {session?.user?.role === 'admin' && (
             <Link href="/admin" className="text-white hover:text-custom-blue">Admin Panel</Link>

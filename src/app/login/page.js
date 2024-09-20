@@ -4,10 +4,11 @@ import InputComponent from "@/components/FormElements/InputComponent";
 import Notification from "@/components/Notification";
 import { loginFormControls } from "@/utils";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { signIn } from 'next-auth/react';
 import { useSession } from 'next-auth/react';
+import Link from "next/link";
 
 const initialFormdata = {
   email: "dodda@gmail.com",
@@ -16,10 +17,9 @@ const initialFormdata = {
 
 export default function Login() {
   const [formData, setFormData] = useState(initialFormdata);
-  const [loading, setLoading] = useState(false); // New loading state
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const session = useSession();
-
+  const { data: session } = useSession();
   console.log(formData);
 
   function isValidForm() {
@@ -54,6 +54,11 @@ export default function Login() {
     }
     setLoading(false); // End loading
   }
+  useEffect(() => {
+    if (session?.user) {
+        router.push("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="bg-white relative">
@@ -86,8 +91,8 @@ export default function Login() {
                 <button
                   className={`inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
                      text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
-                     ${loading ? "cursor-not-allowed" : ""}`} // Disable cursor during loading
-                  disabled={!isValidForm() || loading} // Disable during loading
+                     ${loading ? "cursor-not-allowed" : isValidForm() ? "hover:text-custom-blue" : "" }`}
+                  disabled={!isValidForm() || loading}
                   onClick={handleLogin}
                 >
                   {loading ? (
@@ -117,14 +122,7 @@ export default function Login() {
                 </button>
 
                 <div className="flex flex-col gap-2">
-                  <p>Don't you have account? Register here</p>
-                  <button
-                    className="inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
-                     text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide"
-                    onClick={() => router.push("/register")}
-                  >
-                    Register
-                  </button>
+                  <p>Don't you have account? <span className="text-blue-600 hover:underline mr-2"><Link href={"/register"} > Register </Link></span>Here</p>
                 </div>
               </div>
             </div>
