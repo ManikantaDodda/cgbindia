@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+body::-webkit-scrollbar {
+  overflow: hidden;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --customblue :#289ef9;
 }
 
 @media (prefers-color-scheme: dark) {
