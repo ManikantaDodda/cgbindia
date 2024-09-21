@@ -1,8 +1,7 @@
 {
-    "functions": {
-      "api/user": {
-        "maxDuration": 30
-      }
+  "functions": {
+    "api/user/*.js": {
+      "maxDuration": 60
     }
   }
-  
+}
