@@ -4,7 +4,7 @@ import Navbar from '@/components/Navbar';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
-export default async function AdminPanel() {
+export default function AdminPanel() {
   const {data : session, status} =  useSession();
   const router = useRouter();
 

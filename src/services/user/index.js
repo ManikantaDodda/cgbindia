@@ -1,13 +1,15 @@
+import axios from 'axios';
+
 export async function fetchUsersdData() {
-    const res = await fetch('/api/user', {
-      method: 'GET',
-    });
-  
-    if (res.status === 401) {
+  try {
+    const res = await axios.get('/api/user');
+
+    return res.data;
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
       console.log('Unauthorized');
     } else {
-      const data = await res.json();
-      return data;
+      console.error('An error occurred:', error);
     }
   }
-  
+}

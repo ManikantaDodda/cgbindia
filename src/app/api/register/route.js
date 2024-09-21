@@ -11,6 +11,8 @@ const schema = Joi.object({
   role: Joi.string().required(),
 });
 
+export const dynamic = "force-dynamic";
+
 export async function POST(req) {
   await connectToDB();
 
