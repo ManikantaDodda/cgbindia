@@ -7,7 +7,7 @@ export async function GET(req) {
     let auth = await authenticate(req, "admin");
     
     if (auth) {
-      const userData = await User.find({ role: "user" }, "name email role");
+      const userData = await User.find({ role: "user" }, "name email role").lean();
       
       if (userData.length) {
         return NextResponse.json({ status: "success", data: userData });
