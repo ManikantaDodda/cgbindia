@@ -1,15 +1,16 @@
 "use client";
 import { useSession } from 'next-auth/react';
 import Navbar from '@/components/Navbar';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
 export default async function AdminPanel() {
   const {data : session, status} =  useSession();
+  const router = useRouter();
 
   // Redirect if the user is not authenticated or not an admin
   if (!session || session.user.role !== 'admin') {
-    redirect('/login');
+    router.push('/login');
   }
 
   return (
