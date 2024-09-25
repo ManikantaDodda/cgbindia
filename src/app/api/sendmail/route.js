@@ -11,13 +11,13 @@ const transport = createTransport({
     port: 587,
     secure : false,
     auth : {
-        user : "deepak.rawat@cgbindia.com",
-        pass :"lzmj nlhz fykm liky"
+        user : process.env.USER,
+        pass : process.env.PASS
     }
 })
 
 const send =await transport.sendMail({
-    from : "deepak.rawat@cgbindia.com",
+    from : process.env.USER,
     to : to,
     subject : subject,
     text : body,
