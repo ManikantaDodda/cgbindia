@@ -1,0 +1,4 @@
+Installing Nodemailer.
+Setting up an API route in Next.js (e.g., pages/api/sendEmail.js).
+Using Nodemailer to configure the transporter and send an email in the API route.
+Calling the API route from the front end
